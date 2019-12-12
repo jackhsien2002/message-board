@@ -1,0 +1,13 @@
+{% extends 'layout.html' %}
+
+{% block scripts %}
+<script src="{{ url_for('static', filename='test.js') }}"></script>
+{% endblock scripts %}
+
+{% block title %}Test Infinite Scroll{% endblock %}
+
+{% block body %}
+
+<div id="post"></div>
+
+{% endblock %}

@@ -1,0 +1,28 @@
+{% extends 'layout.html' %}
+
+{% block scripts %}
+    <script src="{{ url_for('static', filename='channel_list.js') }}"></script>
+{% endblock scripts %}
+    
+{% block body %}
+<h1>Welcome board! {{ username }}</h1>
+<h3>create a channel</h3>
+<form action="" method="POST">
+    <input type="text" placeholder="channel name" name="channel_name">
+    <input type="submit">
+</form>
+<h1>Channel List</h1>
+<h1 class="test" id="channel_name">Test</h1>
+<div id="channe_list">
+    <ul>
+        {% for channel in channels %}
+            <li id="{{ channel.id }}" class="channel"><a href="{{ url_for('channel', channel_name = channel.channel_name) }}">{{ channel.channel_name }}</a></li>
+        {% endfor %}
+    </ul>
+</div>
+<div class="messages">
+    <ul id="message_board">
+    </ul>
+</div>
+<hr>
+{%  endblock%}

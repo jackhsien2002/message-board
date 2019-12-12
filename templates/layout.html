@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/socket.io/2.2.0/socket.io.js" integrity="sha256-yr4fRk/GU1ehYJPAs8P4JlTgu0Hdsp4ZKrx8bDEDC3I=" crossorigin="anonymous"></script>
+    
+    {% block scripts %}{% endblock scripts %}
+    
+    <title>Flack</title>
+</head>
+<body>
+    {% if username %}
+        <p>Welcome! {{ username }}</p>
+    {% else %}
+        <p>Welcome! visitor</p>
+    {% endif %}
+    {% block title %}{% endblock %}
+    {% block body %}{% endblock %}
+</body>
+
+</html>

@@ -1,0 +1,17 @@
+{% extends "layout.html" %}
+{% block scripts %}
+    <script src="{{ url_for('static', filename='channel.js') }}"></script>
+{% endblock scripts %}
+
+{% block title %}{{ channel.channel_name }}{% endblock %}
+
+{% block body %}
+
+<ul id="message_board">
+</ul>
+<hr>
+<form>
+    <input type="text" placeholder="your thoughts?" id="message">
+    <button id="send_message_button">send message</button>
+</form>
+{% endblock %}
