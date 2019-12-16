@@ -35,12 +35,12 @@ All developer keys is imported from environment variable by dotenv package. keys
 ## Database and Models
 1. Heroku Postgres is used as database. All usernames, channel, messages be will saved here. All the database manipulation is done by SQLAlchemy.
 2. Three Models are defined in database: Message, User, Channel
-...messages can be created by many users.
-...messages can be in many channels.
-...message has the fields of user, time of message creation, and content of messages.
-...channel can be created by users.
-...channel has the fields of name
-...user has the fields of name
+   messages can be created by many users.
+   messages can be in many channels.
+   message has the fields of user, time of message creation, and content of messages.
+   channel can be created by users.
+   channel has the fields of name
+   user has the fields of name
 
 # Demo
 ![login](/demo/login.jpg)
