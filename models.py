@@ -61,10 +61,6 @@ class Channel(db.Model):
         messages = Message.query.filter(Message.channel_id == self.id).order_by(Message.id.desc()).limit(n).order_by(Message.id.asc())
         return messages
 
-    def getMemberList(self):
-        members = Membership.query.filter(id == self.id)
-        return members
-
 
 class Message(db.Model):
     __tablename__ = "messages"

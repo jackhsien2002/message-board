@@ -6,12 +6,13 @@ from models import *
 
 from datetime import datetime, timedelta
 
+from settings import DATABASE_URL
+
 app = Flask(__name__)
-if not os.getenv("DATABASE_URL"):
-    raise RuntimeError("DATABASE_URL is not set")
+
 
 #tell flask sqlAlchemy where that database is
-app.config["SQLALCHEMY_DATABASE_URI"] = os.getenv("DATABASE_URL")
+app.config["SQLALCHEMY_DATABASE_URI"] = DATABASE_URL
 app.config["SQLALCHEMY_TRACK_MODIFICATIONS"] = False
 
 #link the database to flask application
@@ -56,33 +57,30 @@ def testQueryUserToMessage():
         print(m.text)
 
 def queryGivenRange():
-    start = 20
+    start = 0
     amount = 20
     channel_id = 1
-    messages = Message.query.join(User).filter(Message.channel_id == channel_id).offset(start).limit(amount)
+    messages = Message.query.join(User).filter(Message.channel_id == channel_id).order_by(Message.times.desc())[start:start+amount]
     #using sql query a range of message obj by specifying start and end; return messages
-    data = []
-    for message in messages:
-        data.append(message.text)
-    return data
+    return messages
 
 def testQueryGivenRange():
-    data = queryGivenRange()
-    for item in data:
-        print(item)
+    messages = queryGivenRange()
+    for message in messages:
+        print(f"{message.text} at {message.times}, index {message.id}")
+
 
 def main():
     print("===Testing start===")
-    
     #db.create_all()
     #create_n_mock_message(40)
     #db.create_all()
     #testQueryForeignTalbe()
     #testQueryUserToMessage()
-    #testQueryGivenRange()
+    testQueryGivenRange()
     #mock_datetime() 
     
-        print("===Process Finished===")
+    print("===Process Finished===")
 
 if __name__ == '__main__':
     with app.app_context():

@@ -5,18 +5,13 @@
 {% endblock scripts %}
     
 {% block body %}
-<h1>Welcome board! {{ username }}</h1>
 <h3>create a channel</h3>
-<form action="" method="POST">
-    <input type="text" placeholder="channel name" name="channel_name">
-    <input type="submit">
-</form>
-<h1>Channel List</h1>
-<h1 class="test" id="channel_name">Test</h1>
-<div id="channe_list">
+
+<h1 id="channel_name" class="fixed-top mx-auto head-color p-1" style="width: 50%;">Channel List</h1>
+<div id="channe_list" class="channel-list">
     <ul>
         {% for channel in channels %}
-            <li id="{{ channel.id }}" class="channel"><a href="{{ url_for('channel', channel_name = channel.channel_name) }}">{{ channel.channel_name }}</a></li>
+            <li id="{{ channel.id }}" class="channel mt-3 mb-3"><a class="channel-link" href="{{ url_for('channel', channel_name = channel.channel_name) }}">{{ channel.channel_name }}</a></li>
         {% endfor %}
     </ul>
 </div>
@@ -24,5 +19,11 @@
     <ul id="message_board">
     </ul>
 </div>
-<hr>
+<form class="form-inline" action="" method="POST">
+    <div class="form-group mx-sm-1 mb-2">
+            <label for="channel-name" class="sr-only">username</label>
+            <input type="text" class="form-control" name="channel_name" id="channel-name" placeholder="create channel name" required>
+    </div>
+    <button type="submit" class="btn btn-warning mb-2" id="send_message_button">Create channel</button>
+</form>
 {%  endblock%}

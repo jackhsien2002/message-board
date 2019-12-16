@@ -1,9 +1,0 @@
-{% extends 'layout.html' %}
-
-{% block title %}Register Your Name{% endblock %}
-
-{% block body %}
-<form action="{{ url_for('channelList') }}" method="post">
-    <input type="text" name="username" placeholder="enter your name">
-    <input type="submit">
-{% endblock %}

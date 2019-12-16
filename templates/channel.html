@@ -3,15 +3,22 @@
     <script src="{{ url_for('static', filename='channel.js') }}"></script>
 {% endblock scripts %}
 
-{% block title %}{{ channel.channel_name }}{% endblock %}
+{% block title %}{% endblock %}
 
 {% block body %}
-
-<ul id="message_board">
-</ul>
+<div class="fixed-top mx-auto head-font-color p-1" style="width: 50%;">
+    <h3>{{ channel.channel_name }}</h3>
+    <form class="form-inline">
+            <div class="form-group mx-sm-1 mb-2">
+                    <label for="message" class="sr-only">Message</label>
+                    <input type="text" class="form-control" id="message" placeholder="leave message here">
+            </div>
+            <button type="submit" class="btn btn-warning mb-2" id="send_message_button">Send</button>
+    </form>
+</div>
 <hr>
-<form>
-    <input type="text" placeholder="your thoughts?" id="message">
-    <button id="send_message_button">send message</button>
-</form>
+<div>
+    <ul class="list-group border-bottom" id="message-board" style="margin-top: 80px;">
+    </ul>
+</div>
 {% endblock %}

@@ -5,17 +5,20 @@ from flask_session import Session
 from flask_socketio import SocketIO, emit
 from models import *
 from datetime import datetime
+from settings import DATABASE_URL
 
-#postgres://cylikbqqbipbff:7b413088713156b728df001d7a4157deabab9f922061f80c73b10ccd27283ec2@ec2-174-129-253-146.compute-1.amazonaws.com:5432/d5k1ibv8ga50gh
-
-
-
+#import filename. it tell flask where should it look for application
 app = Flask(__name__)
-if not os.getenv("DATABASE_URL"):
-    raise RuntimeError("DATABASE_URL is not set")
+
+#if not os.getenv("DATABASE_URL"):
+#    raise RuntimeError("DATABASE_URL is not set")
+
+#if not DATABASE_URL:
+#    raise RuntimeError("DATABASE_URL is not set")
 
 #tell flask sqlAlchemy where that database is
-app.config["SQLALCHEMY_DATABASE_URI"] = os.getenv("DATABASE_URL")
+#app.config["SQLALCHEMY_DATABASE_URI"] = os.getenv("DATABASE_URL")
+app.config["SQLALCHEMY_DATABASE_URI"] = DATABASE_URL
 app.config["SQLALCHEMY_TRACK_MODIFICATIONS"] = False
 
 # Configure session to use filesystem

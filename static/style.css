@@ -1,0 +1,47 @@
+.fixed-top {
+    position : fixed;
+}
+#channel_name {
+    margin-top : 20px;
+}
+#login-buffer {
+    margin-top: 100px;
+    color : black;
+}
+.head-color {
+    background-color:	#800000;
+    color : blanchedalmond;
+}
+.head-font-color {
+    color : blanchedalmond;
+}
+.head-link {
+    color : #FFF8DC;
+    
+}
+.head-link:hover {
+    color: #DAA520;
+    text-decoration: underline;
+}
+.board-back {
+    background-color: #F5DEB3;
+}
+.heading {
+    color : #8B4513;
+}
+.content {
+    margin-top: 80px;
+}
+.channel-list {
+    margin-top : 90px;
+}
+.channel-link {
+    color : black;
+}
+.channel-link:hover{
+    text-decoration: underline;
+
+}
+.brand-size {
+    padding : 5px;
+}

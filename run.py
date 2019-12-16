@@ -5,17 +5,27 @@ from flask_session import Session
 from flask_socketio import SocketIO, emit
 from models import *
 from datetime import datetime
+# load dotenv in the base root
+from dotenv import load_dotenv
+from pathlib import Path
 
-#postgres://cylikbqqbipbff:7b413088713156b728df001d7a4157deabab9f922061f80c73b10ccd27283ec2@ec2-174-129-253-146.compute-1.amazonaws.com:5432/d5k1ibv8ga50gh
+load_dotenv(verbose=True)
 
+env_path = Path('.') / '.env'
+load_dotenv(dotenv_path=env_path)
 
+DATABASE_URL = os.getenv('DATABASE_URL')
 
 app = Flask(__name__)
-if not os.getenv("DATABASE_URL"):
+#if not os.getenv("DATABASE_URL"):
+#    raise RuntimeError("DATABASE_URL is not set")
+
+if not DATABASE_URL:
     raise RuntimeError("DATABASE_URL is not set")
 
 #tell flask sqlAlchemy where that database is
-app.config["SQLALCHEMY_DATABASE_URI"] = os.getenv("DATABASE_URL")
+#app.config["SQLALCHEMY_DATABASE_URI"] = os.getenv("DATABASE_URL")
+app.config["SQLALCHEMY_DATABASE_URI"] = DATABASE_URL
 app.config["SQLALCHEMY_TRACK_MODIFICATIONS"] = False
 
 # Configure session to use filesystem
@@ -33,13 +43,14 @@ socketio = SocketIO(app)
 
 temp_messages = []
 
-@app.route("/")
-def index():
-    return render_template("name.html")
+@app.route("/login")
+def login():
+    return render_template("login.html")
 
-@app.route("/test")
-def testPage():
-    return render_template("test.html")
+@app.route("/logout")
+def logout():
+    session.pop('username', None)
+    return render_template('logout.html')
 
 @app.route("/list", methods = ["POST", "GET"])
 def channelList():
@@ -77,15 +88,21 @@ def channel(channel_name):
 
 @app.route("/post", methods = ["POST"])
 def post():
-    start = int(request.form.get("start")) - 1
+    start = int(request.form.get("start"))
     amount = int(request.form.get("amount"))
-    channel_id = int(request.form.get("channel_id"))
-    messages = Message.query.join(User).filter(Message.channel_id == channel_id).offset(start).limit(amount)
+    print(start, amount)
+    channel_id = session['channel_id']
+    messages = Message.query.join(User).filter(Message.channel_id == channel_id).order_by(Message.times.desc())[start:start+amount]
     #using sql query a range of message obj by specifying start and end; return messages
     data = []
     for message in messages:
-        message_time = message.times.strftime('%M:%S at %m/%d')
-        data.append({"message" : message.text, "username" : message.user.username, "times" : message_time})
+        message_time = message.times.strftime('%I:%M:%S at %m/%d')
+        data.append({
+            "message" : message.text, 
+            "username" : message.user.username, 
+            "times" : message_time
+        })
+
     return jsonify(data)
 
 @socketio.on("send message")
@@ -111,7 +128,7 @@ def sendMessage(data):
     message_time = datetime.now(tz = None).strftime('%M:%S at %m/%d')
     print(m.user.username, m.text, message_time)
     emit("broadcast message",
-        {"message" : m.text, "username" : m.user.username, "times" : message_time},
+        {"message" : m.text, "username" : m.user.username, "times" : message_time, "is_sent" : True},
         broadcast = True)
 
 
