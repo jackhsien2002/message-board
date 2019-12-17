@@ -1,7 +1,5 @@
 # Message Board
 
-Web Programming with Python and JavaScript
-
 # Introduction
 In modern days, socializing event can be hold not only in reality, but also in online. Message board is a place where people create their anonymous identity, build their own chat channel, and share their thoughts without exposing their real life.
 
