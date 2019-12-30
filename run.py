@@ -11,9 +11,10 @@ from pathlib import Path
 app = Flask(__name__)
 
 #import developer key from .env file into environment variable
-load_dotenv(verbose=True)
-env_path = Path('.') / '.env'
-load_dotenv(dotenv_path=env_path)
+#load_dotenv(verbose=True)
+#env_path = Path('.') / '.env'
+#load_dotenv(dotenv_path=env_path)
+
 DATABASE_URL = os.getenv('DATABASE_URL')
 
 #raise error message if DATABASE_URL cannot be found in environment variable
