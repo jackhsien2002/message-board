@@ -73,7 +73,7 @@ def logout():
 @app.route("/list", methods = ["POST", "GET"])
 def channelList():
     '''
-    a view that displaye
+    a view that display channels
     '''
     #if user want to create channel
     if request.method == "POST":
@@ -107,9 +107,6 @@ def channel(channel_name):
 
 @app.route("/post", methods = ["POST"])
 def post():
-    '''
-    When 
-    '''
     start = int(request.form.get("start"))
     amount = int(request.form.get("amount"))
     channel_id = session['channel_id']
@@ -161,5 +158,4 @@ def sendMessage(data):
 
 
 if __name__ == '__main__':
-    #if this file is executed by python interpreter, run the socket io along with application
     socketio.run(app)
