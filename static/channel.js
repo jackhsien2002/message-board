@@ -28,7 +28,7 @@ document.addEventListener('DOMContentLoaded', () => {
 //if page is scrolled to the bottom, add another 20 messages 
 window.onscroll = () => {
     //if page is scrolled to the bottom
-    if (window.scrollY + window.innerHeight + 1 >= document.body.clientHeight) {
+    if (window.scrollY + window.innerHeight >= document.body.clientHeight) {
         //load more messages
         load()
     }
